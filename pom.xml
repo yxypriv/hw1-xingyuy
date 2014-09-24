@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>edu.cmu.lti.11791.f14.hw1</groupId>
 	<artifactId>hw1-xingyuy</artifactId>
-	<version>1.0</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<scm>
 		<connection>scm:git:git@github.com:yxypriv/hw1-xingyuy.git</connection>
 		<developerConnection>scm:git:git@github.com:yxypriv/hw1-xingyuy.git</developerConnection>
