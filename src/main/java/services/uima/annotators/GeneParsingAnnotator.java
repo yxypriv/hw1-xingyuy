@@ -28,7 +28,7 @@ import services.utils.trieTree.TrieTreeNode;
  * trie tree to save it and compare in the noun phases parts of the sentence.
  * 
  * @author Xingyu
- *
+ * 
  */
 public class GeneParsingAnnotator extends JCasAnnotator_ImplBase {
 	static final String RES_GENE_DICT = "Dictionary";
@@ -38,7 +38,7 @@ public class GeneParsingAnnotator extends JCasAnnotator_ImplBase {
 
 	@Override
 	public void initialize(UimaContext aContext) throws ResourceInitializationException {
-		// geneNameHandle = new TrieTreeHandle();
+		geneNameHandle = new TrieTreeHandle();
 		//
 		// URI resourceURI = null;
 		// try {
@@ -48,8 +48,8 @@ public class GeneParsingAnnotator extends JCasAnnotator_ImplBase {
 		// }
 		// Object configParameterValue =
 		// getConfigParameterValue(PARAM_GENE_DICT);
-
-		URL resource = GeneParsingAnnotator.class.getResource("/data/zipedGeneNames");
+		String dictionaryPath = (String) aContext.getConfigParameterValue(RES_GENE_DICT);
+		URL resource = GeneParsingAnnotator.class.getResource(dictionaryPath);
 		// geneNameHandle.buildTrieTree_using_raw_file(new
 		// File(resource.getFile()));
 		geneNameHandle.buildTrieTree(new File(resource.getFile()));
@@ -94,13 +94,14 @@ public class GeneParsingAnnotator extends JCasAnnotator_ImplBase {
 							int k = j + 1;
 							int numberSuffixLength = 0;
 							while (k < contentArray.length && //
-									contentArray[k] >= '0' && contentArray[k] <= '9') {
+											contentArray[k] >= '0' && contentArray[k] <= '9') {
 								numberSuffixLength++;
 								k++;
 							}
 							if (k == contentArray.length || validStopCharSet.contains(contentArray[k])) {
 								if (currentNode.isNumberLengthInRange(numberSuffixLength)) {
-									annotateGene(aJCas, i, j + numberSuffixLength + 1, content.substring(i, j + numberSuffixLength + 1));
+									annotateGene(aJCas, i, j + numberSuffixLength + 1,
+													content.substring(i, j + numberSuffixLength + 1));
 									break;
 								}
 							}
